@@ -1,27 +1,24 @@
 {% extends 'layout.html' %}
-
 {% block title %}Welcome - TweetApp{% endblock %}
 
 {% block content %}
 <div class="row">
   <div class="col-md-8 offset-md-2 text-center">
-    <div class="jumbotron bg-white p-5 rounded shadow">
-      <h1 class="display-4">
-        <i class="bi bi-twitter text-primary"></i> Welcome to TweetApp
+    <div class="p-5 bg-white rounded-4 shadow-lg">
+      <h1 class="display-5 fw-bold text-primary mb-3">
+        <i class="bi bi-twitter"></i> Welcome to TweetApp
       </h1>
-      <p class="lead mt-4">Share your thoughts with the world in 280 characters or less!</p>
-      <hr class="my-4">
-      <p>Join our community and start tweeting today.</p>
-      <div class="mt-4">
-        <a class="btn btn-primary btn-lg me-2" href="{% url 'tweet_list' %}" role="button">
-          <i class="bi bi-house"></i> View Tweets
-        </a>
-        {% if not user.is_authenticated %}
-        <a class="btn btn-success btn-lg" href="{% url 'register' %}" role="button">
-          <i class="bi bi-person-plus"></i> Get Started
-        </a>
-        {% endif %}
-      </div>
+      <p class="lead text-muted">Share your thoughts with the world in 280 characters or less!</p>
+      <hr>
+      <p class="mb-4">Join our community and start tweeting today 🚀</p>
+      <a href="{% url 'tweet:tweet_list' %}" class="btn btn-primary btn-lg me-2">
+        <i class="bi bi-house"></i> View Tweets
+      </a>
+      {% if not user.is_authenticated %}
+      <a href="{% url 'tweet:register' %}" class="btn btn-success btn-lg">
+        <i class="bi bi-person-plus"></i> Get Started
+      </a>
+      {% endif %}
     </div>
   </div>
 </div>

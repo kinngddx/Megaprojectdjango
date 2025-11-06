@@ -8,9 +8,11 @@ from django.contrib import messages
 def index(request):
     return render(request, 'index.html')
 
+
 def tweet_list(request):
     tweets = Tweet.objects.all()
     return render(request, 'tweet_list.html', {'tweets': tweets})
+
 
 @login_required
 def tweet_create(request):
@@ -21,10 +23,11 @@ def tweet_create(request):
             tweet.user = request.user
             tweet.save()
             messages.success(request, 'Tweet posted successfully!')
-            return redirect('tweet_list')
+            return redirect('tweet:tweet_list')   # ✅ fixed
     else:
         form = TweetForm()
     return render(request, 'tweet_form.html', {'form': form})
+
 
 @login_required
 def tweet_edit(request, tweet_id):
@@ -34,10 +37,11 @@ def tweet_edit(request, tweet_id):
         if form.is_valid():
             form.save()
             messages.success(request, 'Tweet updated successfully!')
-            return redirect('tweet_list')
+            return redirect('tweet:tweet_list')   # ✅ fixed
     else:
         form = TweetForm(instance=tweet)
     return render(request, 'tweet_form.html', {'form': form})
+
 
 @login_required
 def tweet_delete(request, tweet_id):
@@ -45,8 +49,9 @@ def tweet_delete(request, tweet_id):
     if request.method == 'POST':
         tweet.delete()
         messages.success(request, 'Tweet deleted successfully!')
-        return redirect('tweet_list')
+        return redirect('tweet:tweet_list')   # ✅ fixed
     return render(request, 'tweet_confirm_delete.html', {'tweet': tweet})
+
 
 def register(request):
     if request.method == 'POST':
@@ -55,7 +60,7 @@ def register(request):
             user = form.save()
             login(request, user)
             messages.success(request, 'Registration successful!')
-            return redirect('tweet_list')
+            return redirect('tweet:tweet_list')   # ✅ fixed
     else:
         form = UserRegistrationForm()
     return render(request, 'registration/register.html', {'form': form})
