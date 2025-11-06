@@ -4,21 +4,24 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
   <title>{% block title %}Twitter Clone{% endblock %}</title>
 
-  <!-- Bootstrap & Icons -->
+  <!-- Bootstrap CSS -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  
+  <!-- Bootstrap Icons -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
 
-  <!-- Custom CSS -->
+  <!-- Optional: custom CSS -->
   <link rel="stylesheet" href="{% static 'css/style.css' %}">
 </head>
-<body class="bg-light">
+<body class="bg-light"> 
 
   <!-- Navbar -->
   <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
     <div class="container">
-      <a class="navbar-brand fw-bold" href="{% url 'tweet_list' %}">
+      <a class="navbar-brand fw-bold" href="{% url 'tweet:tweet_list' %}">
         <i class="bi bi-twitter"></i> TweetApp
       </a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
@@ -26,30 +29,34 @@
       </button>
       <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav ms-auto">
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'tweet:tweet_list' %}">Home</a>
+          </li>
           {% if user.is_authenticated %}
-            <li class="nav-item">
-              <a class="nav-link" href="{% url 'tweet_create' %}">✍️ New Tweet</a>
-            </li>
-            <li class="nav-item">
-              <span class="nav-link">👋 {{ user.username }}</span>
-            </li>
-            <li class="nav-item">
-              <form method="post" action="{% url 'logout' %}" style="display:inline;">
-                {% csrf_token %}
-                <button type="submit" class="nav-link btn btn-link text-white p-0 m-0" style="border:none;">Logout</button>
-              </form>
-            </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'tweet:tweet_create' %}">Create Tweet</a>
+          </li>
+          <li class="nav-item">
+            <span class="nav-link">Hello, {{ user.username }}</span>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'logout' %}">Logout</a>
+          </li>
           {% else %}
-            <li class="nav-item"><a class="nav-link" href="{% url 'login' %}">Login</a></li>
-            <li class="nav-item"><a class="nav-link" href="{% url 'register' %}">Register</a></li>
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'login' %}">Login</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'tweet:register' %}">Register</a>
+          </li>
           {% endif %}
         </ul>
       </div>
     </div>
   </nav>
 
-  <!-- Flash Messages -->
-  <div class="container mt-3">
+  <main class="container my-5">
+    <!-- Messages -->
     {% if messages %}
       {% for message in messages %}
         <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
@@ -58,16 +65,14 @@
         </div>
       {% endfor %}
     {% endif %}
-  </div>
 
-  <!-- Main Content -->
-  <main class="container my-5">
-    {% block content %}{% endblock %}
+    {% block content %}
+    {% endblock %}
   </main>
 
   <!-- Footer -->
   <footer class="bg-dark text-white text-center py-3 mt-5">
-    <p class="mb-0">&copy; 2025 TweetApp. Made with Django 💙</p>
+    <p class="mb-0">&copy; 2024 TweetApp. Made with Django</p>
   </footer>
 
   <!-- Bootstrap JS -->
