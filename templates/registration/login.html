@@ -1,0 +1,51 @@
+{% extends 'layout.html' %}
+
+{% block title %}Login - TweetApp{% endblock %}
+
+{% block content %}
+<div class="row">
+  <div class="col-md-6 offset-md-3">
+    <div class="card shadow">
+      <div class="card-header bg-primary text-white">
+        <h4 class="mb-0">
+          <i class="bi bi-box-arrow-in-right"></i> Login
+        </h4>
+      </div>
+      <div class="card-body">
+        {% if form.errors %}
+          <div class="alert alert-danger">
+            Invalid username or password. Please try again.
+          </div>
+        {% endif %}
+
+        <form method="POST">
+          {% csrf_token %}
+          
+          <div class="mb-3">
+            <label for="{{ form.username.id_for_label }}" class="form-label">Username</label>
+            <input type="text" name="username" class="form-control" required id="id_username">
+          </div>
+
+          <div class="mb-3">
+            <label for="{{ form.password.id_for_label }}" class="form-label">Password</label>
+            <input type="password" name="password" class="form-control" required id="id_password">
+          </div>
+
+          <input type="hidden" name="next" value="{{ next }}">
+
+          <div class="d-grid gap-2">
+            <button type="submit" class="btn btn-primary">
+              <i class="bi bi-box-arrow-in-right"></i> Login
+            </button>
+          </div>
+        </form>
+
+        <hr>
+        <p class="text-center mb-0">
+          Don't have an account? <a href="{% url 'register' %}">Register here</a>
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

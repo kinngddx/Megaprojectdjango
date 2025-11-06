@@ -1,0 +1,40 @@
+{% extends 'layout.html' %}
+
+{% block title %}Delete Tweet - TweetApp{% endblock %}
+
+{% block content %}
+<div class="row">
+  <div class="col-md-6 offset-md-3">
+    <div class="card shadow">
+      <div class="card-header bg-danger text-white">
+        <h4 class="mb-0">
+          <i class="bi bi-exclamation-triangle"></i> Delete Tweet
+        </h4>
+      </div>
+      <div class="card-body">
+        <p class="lead">Are you sure you want to delete this tweet?</p>
+        
+        <div class="alert alert-light">
+          <strong>Tweet:</strong>
+          <p class="mb-0">{{ tweet.text }}</p>
+          {% if tweet.photo %}
+          <img src="{{ tweet.photo.url }}" class="img-fluid rounded mt-2" alt="Tweet image" style="max-height: 200px;">
+          {% endif %}
+        </div>
+
+        <form method="POST">
+          {% csrf_token %}
+          <div class="d-grid gap-2">
+            <button type="submit" class="btn btn-danger">
+              <i class="bi bi-trash"></i> Yes, Delete
+            </button>
+            <a href="{% url 'tweet_list' %}" class="btn btn-secondary">
+              <i class="bi bi-x-circle"></i> Cancel
+            </a>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
