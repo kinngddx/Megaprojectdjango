@@ -56,7 +56,7 @@ ROOT_URLCONF = 'Megaproject.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [os.path.join(BASE_DIR, 'templates')],  #app ke ander templates rkh skta hu ab mai
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
